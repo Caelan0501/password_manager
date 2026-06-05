@@ -6,9 +6,11 @@
 class Vault {
     public:
         void addCredential();
+        void addCredential(std::string site, std::string username,  std::string password);
         void removeCredential();
+        void removeCredential(const std::string &site);
         void listCredentials();
-
+        void saveCredentials();
     private:
         std::vector<Credential> credentials;
 };
