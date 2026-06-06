@@ -10,7 +10,10 @@ class Vault {
         void removeCredential();
         void removeCredential(const std::string &site);
         void listCredentials();
-        void saveCredentials();
+        void saveCredentials(const std::string& filename);
+        void loadCredentials(const std::string& filename);
+
     private:
         std::vector<Credential> credentials;
+
 };

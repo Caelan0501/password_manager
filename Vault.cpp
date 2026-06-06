@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <utility>
+#include <fstream>
+#include "nlohmann/json.hpp"
 
 void Vault::addCredential() {
     Credential c;
@@ -46,6 +48,18 @@ void Vault::listCredentials() {
     }
 }
 
-void Vault::saveCredentials() {
-
+void Vault::saveCredentials(const std::string& filename) {
+    nlohmann::json j;
+    j["Credentials"] = credentials;
+    std::ofstream file(filename);
+    file << j.dump(4);
 }
+
+void Vault::loadCredentials(const std::string& filename) {
+    std::ifstream file(filename);
+    nlohmann::json j = nlohmann::json::parse(file);
+    credentials = j.at("Credentials").get<std::vector<Credential>>();
+}
+
+
+
