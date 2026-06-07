@@ -5,21 +5,6 @@
 #include <fstream>
 #include "nlohmann/json.hpp"
 
-void Vault::addCredential() {
-    Credential c;
-
-    std::cout << "Site: ";
-    std::getline(std::cin, c.site);
-
-    std::cout << "Username: ";
-    std::getline(std::cin, c.username);
-
-    std::cout << "Password: ";
-    std::getline(std::cin, c.password);
-
-    credentials.push_back(c);
-}
-
 void Vault::addCredential(std::string site, std::string username, std::string password) {
     Credential c;
     c.site = std::move(site);
@@ -28,24 +13,27 @@ void Vault::addCredential(std::string site, std::string username, std::string pa
     credentials.push_back(c);
 }
 
-void Vault::removeCredential() {
-    std::string site;
-    std::cout << "\nSite: ";
-    std::getline(std::cin, site);
+void Vault::removeCredentialBySite(const std::string &site) {
     std::erase_if(credentials, [&](const Credential& c) {return c.site == site;});
 }
 
-void Vault::removeCredential(const std::string &site) {
-    std::erase_if(credentials, [&](const Credential& c) {return c.site == site;});
+void Vault::removeCredentialByUsername(const std::string &username) {
+    std::erase_if(credentials, [&](const Credential& c) {return c.username == username;});
 }
 
-void Vault::listCredentials() {
-    for (const auto& c : credentials) {
-        std::cout << "\nSite: " << c.site
-                  << "\nUsername: " << c.username
-                  << "\nPassword: " << c.password
-                  << "\n";
+void Vault::removeCredentialByPassword(const std::string &password) {
+    std::erase_if(credentials, [&](const Credential& c) {return c.password == password;});
+}
+
+std::string Vault::listCredentials() {
+    std::string s;
+    for (const auto&[site, username, password] : credentials) {
+        s += "\nSite: " + site;
+        s += "\nUsername: " + username;
+        s += "\nPassword: " + password;
+        s += "\n";
     }
+    return s;
 }
 
 void Vault::saveCredentials(const std::string& filename) {
@@ -60,6 +48,3 @@ void Vault::loadCredentials(const std::string& filename) {
     nlohmann::json j = nlohmann::json::parse(file);
     credentials = j.at("Credentials").get<std::vector<Credential>>();
 }
-
-
-

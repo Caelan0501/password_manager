@@ -13,20 +13,54 @@ int main() {
         std::cout << "6. Exit\n";
         std::cout << "Choice: ";
 
+        std::string site;
+        std::string username;
+        std::string password;
         int choice;
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         switch (choice) {
             case 1:
-                vault.addCredential();
+                std::cout << "Site: ";
+                std::getline(std::cin, site);
+                std::cout << "Username: ";
+                std::getline(std::cin, username);
+                std::cout << "Password: ";
+                std::getline(std::cin, password);
+
+                vault.addCredential(site, username, password);
             break;
 
             case 2:
-                vault.listCredentials();
+                std::cout << vault.listCredentials();
             break;
 
             case 3:
-                vault.removeCredential();
+                std::cout << "\nRemove by:\n";
+                std::cout << "2. Site\n";
+                std::cout << "3. Username\n";
+                std::cout << "4. Password\n";
+                std::cin >> choice;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                switch (choice) {
+                    case 1:
+                        std::cout << "\nSite: ";
+                        std::getline(std::cin, site);
+                        vault.removeCredentialBySite(site);
+                    break;
+                    case 2:
+                        std::cout << "\nUsername: ";
+                        std::getline(std::cin, username);
+                        vault.removeCredentialByUsername(username);
+                    break;
+                    case 3:
+                        std::cout << "\nPassword: ";
+                        std::getline(std::cin, password);
+                        vault.removeCredentialByPassword(password);
+                    break;
+                    default:
+                        std::cout << "Invalid choice.\n";
+                }
             break;
 
             case 4:

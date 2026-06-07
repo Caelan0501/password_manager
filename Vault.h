@@ -5,11 +5,11 @@
 
 class Vault {
     public:
-        void addCredential();
         void addCredential(std::string site, std::string username,  std::string password);
-        void removeCredential();
-        void removeCredential(const std::string &site);
-        void listCredentials();
+        void removeCredentialBySite(const std::string &site);
+        void removeCredentialByUsername(const std::string &username);
+        void removeCredentialByPassword(const std::string &password);
+        std::string listCredentials();
         void saveCredentials(const std::string& filename);
         void loadCredentials(const std::string& filename);
 
