@@ -13,9 +13,7 @@ int main() {
         std::cout << "6. Exit\n";
         std::cout << "Choice: ";
 
-        std::string site;
-        std::string username;
-        std::string password;
+        std::string site, username, password;
         int choice;
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -37,9 +35,9 @@ int main() {
 
             case 3:
                 std::cout << "\nRemove by:\n";
-                std::cout << "2. Site\n";
-                std::cout << "3. Username\n";
-                std::cout << "4. Password\n";
+                std::cout << "1. Site\n";
+                std::cout << "2. Username\n";
+                std::cout << "3. Password\n";
                 std::cin >> choice;
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 switch (choice) {
